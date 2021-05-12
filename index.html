@@ -1,16 +1,41 @@
+<!--
+Based on placards for art (https://www.google.com/search?q=art+placard&tbm=isch)
+-->
+
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="style.css">
+    <title>placard</title>
 </head>
-<body style="color: white">
-<h1>Hello World!</h1>
-<p>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
-</p>
+<body>
+<div id="details-container">
+    <div class="text-details">
+        <h1 id="title">Game of Life</h1>
+        <!-- Artist's name is smaller -->
+        <!--        <h2 id="artist">Artist Name</h2>-->
+        <!-- TODO: Should we add an option to set the year?-->
+        <p id="description">
+            (We need some sort of setting for full screen experiences--is this something that we make a public API? Do
+            we want a smaller floating version of the placard for such experiences?)
+            <br><br>
+            The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician
+            John Horton Conway in 1970.
+        </p>
+    </div>
+    <div class="qr-container">
+        <div class="qr">
+        </div>
+        <p class="qr-description">
+            Scan to interact with the display.
+        </p>
+    </div>
+</div>
+
+<script src="./renderer.js"></script>
+
 </body>
 </html>

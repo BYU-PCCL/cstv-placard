@@ -7,29 +7,51 @@ const {env} = process;
 const runtimePath = path.join(env.XDG_RUNTIME_DIR, "placard")
 const socketPath = path.join(runtimePath, "socket")
 
+let win;
+// const ipc = require('electron').ipcMain
+
 async function createServer() {
     const server = express();
-    server.post("/show")
-    server.post("/hide")
+    server.post("/show", (_req, res) => {
+        win.webContents.send('setVisibility', true);
+        win.webContents.send('setVisibility', "Test");
+        res.status(200).json({status:"ok"})
+    })
+    server.post("/hide", (_req, res) => {
+        win.webContents.send('setVisibility', false);
+        res.status(200).json({status:"ok"})
+    })
+    // server.post("/content", (req, res) => {
+    //     win.webContents.send('setVisibility', false);
+    //     res.status(200).json({status:"ok"})
+    // })
+
     // TODO: See if it would be better to do some sort of IPC here instead
     // server.listen(app.commandLine.getSwitchValue("port") || 8089, "localhost")
 
-    fs.mkdirSync(runtimePath)
+    if (!fs.existsSync(runtimePath)) {
+        fs.mkdirSync(runtimePath)
+    } else if (fs.existsSync(socketPath)) {
+        // It's probably a bad practice to just delete the file but it should work practically
+        fs.rmSync(socketPath)
+    }
+
     server.listen(socketPath)
 }
 
 async function createWindow() {
-    const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+    win = new BrowserWindow({
         frame: false,
         transparent: true,
         webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+            enableRemoteModule: true,
             preload: path.join(__dirname, 'preload.js')
         }
     })
     win.setAlwaysOnTop(true, 'floating')
-    // win.setIgnoreMouseEvents(true, {forward: true})
+    win.setIgnoreMouseEvents(true, {forward: true})
 
     win.loadFile('index.html').then(() => {
         if (app.commandLine.getSwitchValue("uuid")) {
@@ -39,8 +61,9 @@ async function createWindow() {
 }
 
 app.whenReady().then(() => {
-    setTimeout(function () {
-        createWindow();
+    setTimeout(async function () {
+        await createWindow();
+        await createServer();
     }, 1000);
 
     // app.on('activate', () => {

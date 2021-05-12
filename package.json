@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "electron --enable-transparent-visuals --disable-gpu ."
+    "start": "electron --enable-transparent-visuals ."
   },
   "author": "Vin Howe <24789592+vinhowe@users.noreply.github.com>",
   "license": "MIT",
