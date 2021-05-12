@@ -12,6 +12,7 @@ let win;
 
 async function createServer() {
     const server = express();
+    server.use(express.json())
     server.post("/show", (_req, res) => {
         win.webContents.send('setVisibility', true);
         win.webContents.send('setVisibility', "Test");
@@ -21,10 +22,11 @@ async function createServer() {
         win.webContents.send('setVisibility', false);
         res.status(200).json({status:"ok"})
     })
-    // server.post("/content", (req, res) => {
-    //     win.webContents.send('setVisibility', false);
-    //     res.status(200).json({status:"ok"})
-    // })
+    server.post("/content", async (req, res) => {
+        const body = await req.body
+        win.webContents.send('updateContent', body);
+        res.status(200).json({status:"ok"})
+    })
 
     // TODO: See if it would be better to do some sort of IPC here instead
     // server.listen(app.commandLine.getSwitchValue("port") || 8089, "localhost")
@@ -41,8 +43,10 @@ async function createServer() {
 
 async function createWindow() {
     win = new BrowserWindow({
-        frame: false,
-        transparent: true,
+        width: 1920,
+        height: 1080,
+        // frame: false,
+        // transparent: true,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -51,7 +55,7 @@ async function createWindow() {
         }
     })
     win.setAlwaysOnTop(true, 'floating')
-    win.setIgnoreMouseEvents(true, {forward: true})
+    // win.setIgnoreMouseEvents(true, {forward: true})
 
     win.loadFile('index.html').then(() => {
         if (app.commandLine.getSwitchValue("uuid")) {

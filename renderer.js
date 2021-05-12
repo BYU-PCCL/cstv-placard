@@ -21,8 +21,6 @@ ipcRenderer.on('updateContent', (event, args) => {
 });
 
 ipcRenderer.on('setVisibility', (event, visible) => {
-    console.log("TEST")
-    console.log(visible)
     const translateX = `translateX(calc(var(--width) * -1))`;
     detailsContainerElement.style.transform = visible ? "" : translateX;
 })
