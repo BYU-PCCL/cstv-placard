@@ -10,13 +10,11 @@ ipcRenderer.on('updateContent', (event, args) => {
     titleElement.innerHTML = title;
     descriptionElement.innerHTML = description;
 
-    artistElement.style.visibility = artist == null ? "visible" : "hidden";
-
     if (artist != null) {
-        artistElement.style.visibility = "visible";
+        artistElement.style.display = "initial";
         artistElement.innerHTML = artist;
     } else {
-        artistElement.style.visibility = "hidden";
+        artistElement.style.display = "none";
     }
 });
 
