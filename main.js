@@ -41,8 +41,8 @@ async function createWindow() {
     win = new BrowserWindow({
         width: 1920,
         height: 1080,
-        // frame: false,
-        // transparent: true,
+        frame: false,
+        transparent: true,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -51,7 +51,7 @@ async function createWindow() {
         }
     })
     win.setAlwaysOnTop(true, 'floating')
-    // win.setIgnoreMouseEvents(true, {forward: true})
+    win.setIgnoreMouseEvents(true, {forward: true})
 
     win.loadFile('index.html').then(() => {
         if (app.commandLine.getSwitchValue("uuid")) {
