@@ -53,11 +53,7 @@ async function createWindow() {
     win.setAlwaysOnTop(true, 'floating')
     win.setIgnoreMouseEvents(true, {forward: true})
 
-    win.loadFile('index.html').then(() => {
-        if (app.commandLine.getSwitchValue("uuid")) {
-            win.setTitle(app.commandLine.getSwitchValue("uuid"))
-        }
-    })
+    win.loadFile('index.html')
 }
 
 app.whenReady().then(() => {
