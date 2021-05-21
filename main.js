@@ -1,14 +1,13 @@
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const fs = require('fs')
-const express = require('express') //your express app
+const express = require('express')
 
 const {env} = process;
 const runtimePath = path.join(env.XDG_RUNTIME_DIR, "placard")
 const socketPath = path.join(runtimePath, "socket")
 
 let win;
-// const ipc = require('electron').ipcMain
 
 async function createServer() {
     const server = express();
@@ -27,9 +26,6 @@ async function createServer() {
         win.webContents.send('updateContent', body);
         res.status(200).json({status:"ok"})
     })
-
-    // TODO: See if it would be better to do some sort of IPC here instead
-    // server.listen(app.commandLine.getSwitchValue("port") || 8089, "localhost")
 
     if (!fs.existsSync(runtimePath)) {
         fs.mkdirSync(runtimePath)
@@ -69,12 +65,6 @@ app.whenReady().then(() => {
         await createWindow();
         await createServer();
     }, 1000);
-
-    // app.on('activate', () => {
-    //     if (BrowserWindow.getAllWindows().length === 0) {
-    //         createWindow()
-    //     }
-    // })
 })
 
 app.on('window-all-closed', () => {
