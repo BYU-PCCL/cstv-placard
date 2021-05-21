@@ -17,7 +17,7 @@ p {
 #details-container {
     --padding: 36px;
     --width: 20vw;
-    background: #212121;
+    background: rgba(33, 33, 33, 0.5);
     height: calc(100% - (var(--padding) * 2));
     width: calc(var(--width) - (var(--padding) * 2));
     padding: var(--padding);
