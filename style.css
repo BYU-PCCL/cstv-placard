@@ -27,15 +27,17 @@ p {
     justify-content: space-between;
 }
 
-.qr {
-    width: 150px;
-    height: 150px;
-    background: white;
-}
-
-.qr-description {
-    margin-bottom: 0;
-    font-style: italic;
+#qr {
+    --width: 160px;
+    position: absolute;
+    width: var(--width);
+    height: var(--width);
+    background: gray;
+    margin: 36px;
+    bottom: 0;
+    left: 0;
+    border-radius: 8px;
+    border: 4px #212121 solid;
 }
 
 .text-details {
