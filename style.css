@@ -26,8 +26,6 @@ p {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /** Hide details by default **/
-    transform: translateX(calc(var(--width) * -1));
 }
 
 #qr {
