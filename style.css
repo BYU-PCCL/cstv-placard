@@ -41,6 +41,24 @@ p {
     border: 4px black solid;
 }
 
+#clock {
+    --width: 160px;
+    position: absolute;
+    width: 500px;
+    height: 160px;
+    background: gray;
+    margin: 36px;
+    bottom: 0;
+    right: 0;
+    border-radius: 8px;
+    border: 4px black solid;
+    font-size: 400%;
+    text-align: center;
+    display: inline;
+    vertical-align: middle;
+    font-family: 'majormono';
+}
+
 .text-details {
     margin-bottom: 36px;
 }

@@ -46,8 +46,8 @@ async function createWindow() {
     win = new BrowserWindow({
         width: 1920,
         height: 1080,
-        frame: false,
-        transparent: true,
+        // frame: false,
+        // transparent: true,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -55,8 +55,8 @@ async function createWindow() {
             preload: path.join(__dirname, 'preload.js')
         }
     })
-    win.setAlwaysOnTop(true, 'floating')
-    win.setIgnoreMouseEvents(true, {forward: true})
+    // win.setAlwaysOnTop(true, 'floating')
+    //win.setIgnoreMouseEvents(true, {forward: true})
 
     win.loadFile('index.html')
 }
