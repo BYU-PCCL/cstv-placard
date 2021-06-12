@@ -7,6 +7,8 @@ const artistElement = document.querySelector("#artist")
 const detailsContainerElement = document.querySelector("#details-container")
 const qrCanvas = document.querySelector("#qr")
 
+let endTime;
+
 // https://stackoverflow.com/a/11765731/1979008
 function setQRCode(url){
     const svg = QRCode.toString(url, {type: "svg"}, (error) => {
@@ -42,4 +44,9 @@ ipcRenderer.on('setVisibility', (event, visible) => {
 
 ipcRenderer.on('updateUrl', (event, args) => {
     setQRCode(args.url)
+})
+
+ipcRenderer.on('updateEndTime', (event, args) => {
+    endTime = args['end_time']
+    console.log(endTime)
 })

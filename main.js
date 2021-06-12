@@ -31,6 +31,12 @@ async function createServer() {
         win.webContents.send('updateUrl', body);
         res.status(200).json({status:"ok"})
     })
+    server.post("/end-time", async (req, res) => {
+        const body = await req.body
+        win.webContents.send('updateEndTime', body);
+        res.status(200).json({status:"ok"})
+    })
+
 
     if (!fs.existsSync(runtimePath)) {
         fs.mkdirSync(runtimePath)
