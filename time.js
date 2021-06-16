@@ -13,28 +13,18 @@ var x = setInterval(function () {
     n = noSpace[0] + noSpace[1];
 
     var current_time = new Date().getTime()/1000;
-    console.log("endTime: " + endTime)
-    console.log("current_Time: " + current_time)
-    console.log("endTime - current: " + (endTime - current_time))
-    if((endTime - current_time) < 10 && (endTime - current_time) > 0){
-        // console.log("endTime: " + endTime)
-        // console.log("current_Time: " + current_time)
+    // console.log("endTime: " + endTime)
+    // console.log("current_Time: " + current_time)
+    // console.log("endTime - current: " + (endTime - current_time))
+    if((endTime - current_time) < 11 && (endTime - current_time) > 0){
         if(endTime - current_time > 0){
-            n = "00:0" + Math.floor(endTime - current_time) + "  ";
+            n = "00:" + (Math.floor(endTime - current_time).toString().padStart(2,'0')) + "  ";
         } else {
             n = "00:00  ";
         }
     }
 
-    // Output the result in an element with id="demo"
-    // document.getElementById("demo").innerHTML = hour + "h " + min + "m " + sec + "s ";
-    if(!(countdown)){
-        document.getElementById("clock").innerHTML = n;
-        // document.getElementById("clock").innerHTML = "00:00pm";
-    }
-
-    
-
+    document.getElementById("clock").innerHTML = n;
     
     
 }, 1000);
