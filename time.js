@@ -13,13 +13,18 @@ var x = setInterval(function () {
     var current_time = new Date().getTime()/1000;
     if((endTime - current_time) < 11 && (endTime - current_time) > 0){
         if(endTime - current_time > 0){
+            document.getElementById("next-app").innerHTML = "Next app in:";
             n = "00:" + (Math.floor(endTime - current_time).toString().padStart(2,'0')) + "  ";
         } else {
             n = "00:00  ";
         }
+    } else {
+        document.getElementById("next-app").innerHTML = "";
     }
 
+
     document.getElementById("clock").innerHTML = n;
+    // document.getElementById("clock").innerHTML = "00:00pm";
     
     
 }, 1000);
