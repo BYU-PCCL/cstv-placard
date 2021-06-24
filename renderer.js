@@ -21,7 +21,6 @@ function setQRCode(url){
     const svg = QRCode.toString(url, {type: "svg"}, (error) => {
         if (error) alert(error)
     })
-    console.log(svg)
     const blob = new Blob([svg], {type: 'image/svg+xml'});
     const imageUrl = URL.createObjectURL(blob);
     qrImageElement.crossOrigin = "Anonymous";
