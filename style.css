@@ -30,12 +30,19 @@ p {
     position: absolute;
     width: var(--width);
     height: var(--width);
-    background: gray;
+    background: white;
     margin: 36px;
     bottom: 0;
     left: 0;
     border-radius: 8px;
     border: 4px black solid;
+}
+
+#qr.locked {
+    --lock-size: 80px;
+    width: var(--lock-size);
+    height: var(--lock-size);
+    padding: calc((var(--width) - var(--lock-size)) / 2)
 }
 
 .text-details {
