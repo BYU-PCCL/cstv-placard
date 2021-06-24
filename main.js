@@ -22,14 +22,14 @@ async function createServer() {
     server.patch("/placard", async (req, res) => {
         const body = await req.body;
 
-        Object.keys(content).reduce((_, val) => {
-            const bodyVal = body[val];
+        for (let key in content) {
+            const bodyVal = body[key];
             if (bodyVal === undefined) {
-                return;
+                continue;
             }
 
-            content[val] = bodyVal
-        })
+            content[key] = bodyVal
+        }
 
         win.webContents.send("updateContent", content);
         res.status(200).json({status: "ok"});
