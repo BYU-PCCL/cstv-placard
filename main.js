@@ -61,6 +61,8 @@ async function createWindow() {
     win.setAlwaysOnTop(true, 'floating')
 
     await win.loadFile('index.html')
+
+    win.webContents.send("updateContent", content)
 }
 
 app.whenReady().then(() => {
