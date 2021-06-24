@@ -9,19 +9,34 @@ const socketPath = path.join(runtimePath, "socket")
 
 let win;
 
+const content = {
+    title: "Starting...",
+    description: null,
+    artist: null,
+    url: null,
+};
+
 async function createServer() {
     const server = express();
     server.use(express.json())
-    server.post("/content", async (req, res) => {
-        const body = await req.body
-        win.webContents.send('updateContent', body);
-        res.status(200).json({status:"ok"})
-    })
-    server.post("/url", async (req, res) => {
-        const body = await req.body
-        win.webContents.send('updateUrl', body);
-        res.status(200).json({status:"ok"})
-    })
+    server.patch("/placard", async (req, res) => {
+        const body = await req.body;
+
+        Object.keys(content).reduce((_, val) => {
+            const bodyVal = body[val];
+            if (bodyVal === undefined) {
+                return;
+            }
+
+            content[val] = bodyVal
+        })
+
+        win.webContents.send("updateContent", content);
+        res.status(200).json({status: "ok"});
+    });
+    server.get("/placard", async (_, res) => {
+        res.status(200).json(content);
+    });
 
     if (!fs.existsSync(runtimePath)) {
         fs.mkdirSync(runtimePath)

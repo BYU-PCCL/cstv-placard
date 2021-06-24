@@ -22,7 +22,7 @@ function setQRCode(url){
 setQRCode("https://cs.byu.edu")
 
 ipcRenderer.on('updateContent', (event, args) => {
-    const {title, description, artist} = args;
+    const {title, description, artist, url} = args;
     titleElement.innerHTML = title;
     descriptionElement.innerHTML = description;
 
@@ -32,8 +32,8 @@ ipcRenderer.on('updateContent', (event, args) => {
     } else {
         artistElement.style.display = "none";
     }
-});
 
-ipcRenderer.on('updateUrl', (event, args) => {
-    setQRCode(args.url)
-})
+    if (url !== undefined) {
+        setQRCode(args.url)
+    }
+});
