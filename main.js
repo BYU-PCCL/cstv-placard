@@ -12,15 +12,6 @@ let win;
 async function createServer() {
     const server = express();
     server.use(express.json())
-    server.post("/show", (_req, res) => {
-        win.webContents.send('setVisibility', true);
-        win.webContents.send('setVisibility', "Test");
-        res.status(200).json({status:"ok"})
-    })
-    server.post("/hide", (_req, res) => {
-        win.webContents.send('setVisibility', false);
-        res.status(200).json({status:"ok"})
-    })
     server.post("/content", async (req, res) => {
         const body = await req.body
         win.webContents.send('updateContent', body);
@@ -47,7 +38,6 @@ async function createWindow() {
         width: 1920,
         height: 1080,
         frame: false,
-        transparent: true,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -56,7 +46,6 @@ async function createWindow() {
         }
     })
     win.setAlwaysOnTop(true, 'floating')
-    win.setIgnoreMouseEvents(true, {forward: true})
 
     win.loadFile('index.html')
 }

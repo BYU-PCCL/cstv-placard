@@ -14,15 +14,12 @@ p {
     font-size: 110%;
 }
 
-#details-container {
+.details-container {
     --padding: 36px;
     background: #212121;
     height: calc(100% - (var(--padding) * 2));
     width: calc(100% - (var(--padding) * 2));
-    /**--width: 20vw;
-    width: calc(var(--width) - (var(--padding) * 2)); **/
     padding: var(--padding);
-    transition: transform 300ms cubic-bezier(0,0,.06,.99);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
