@@ -6,6 +6,7 @@ body, html {
 
 body {
     color: #FAFAFA;
+    /* TODO(vinhowe): Don't set font size with percentages */
     font-size: 140%;
     font-family: "Open Sans", sans-serif;
 }
