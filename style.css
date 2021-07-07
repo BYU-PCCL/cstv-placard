@@ -27,7 +27,7 @@ p {
 }
 
 #qr {
-    --width: 320px;
+    --width: 600px;
     position: absolute;
     width: var(--width);
     height: var(--width);
