@@ -1,6 +1,6 @@
 {
-  "name": "cstv-placard",
-  "NOTE_TO_MAINTAINERS": "cstv-placard is set to the window title, which is required by cstv-wm to stay constant. If you change this package name, also change the reference in wallwm.py and the title tag in index.html.",
+  "name": "footron-placard",
+  "NOTE_TO_MAINTAINERS": "footron-placard is set to the window title, which is required by footron-wm to stay constant. If you change this package name, also change the reference in wm.py and the title tag in index.html.",
   "version": "0.1.0",
   "description": "",
   "main": "main.js",
