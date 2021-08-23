@@ -10,7 +10,7 @@ const qrImageElement = document.querySelector("#qr");
 
 // https://stackoverflow.com/a/11765731/1979008
 function setQRCode(url) {
-  if (url == null) {
+  if (url === "lock" || url == null) {
     qrImageElement.src = lockImagePath;
     qrImageElement.classList.add("locked");
     return;
