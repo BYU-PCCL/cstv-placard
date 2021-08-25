@@ -42,7 +42,7 @@ body {
   --qr-info-width: 180px;
   position: absolute;
   width: var(--qr-info-width);
-  padding: 16px 16px 0;
+  padding: 16px;
   bottom: 20px;
   left: 20px;
   display: flex;
@@ -53,11 +53,11 @@ body {
 }
 
 .qr-hint {
-  padding: 4px;
-  margin: 24px 0 0 0;
   color: #ccc;
   font-style: italic;
   font-size: 14pt;
+  margin-top: 12px;
+  margin-bottom: 24px;
 }
 
 #qr {
