@@ -9,33 +9,39 @@ const socketPath = path.join(runtimePath, "socket");
 
 let win;
 
-const content = {
+const experience = {
   title: "Starting...",
   description: null,
   artist: null,
-  url: null,
 };
+
+let url = null;
 
 async function createServer() {
   const server = express();
   server.use(express.json());
-  server.patch("/placard", async (req, res) => {
+
+  server.put("/experience", async (req, res) => {
     const body = await req.body;
 
-    for (let key in content) {
-      const bodyVal = body[key];
-      if (bodyVal === undefined) {
-        continue;
-      }
-
-      content[key] = bodyVal;
+    for (let key in experience) {
+      experience[key] = body[key] ?? null;
     }
 
-    win.webContents.send("updateContent", content);
+    win.webContents.send("updateExperience", experience);
     res.status(200).json({ status: "ok" });
   });
-  server.get("/placard", async (_, res) => {
-    res.status(200).json(content);
+  server.get("/experience", async (_, res) => {
+    res.status(200).json(experience);
+  });
+
+  server.put("/url", async (req, res) => {
+    url = await req.body?.url;
+    win.webContents.send("updateUrl", url);
+    res.status(200).json({ status: "ok" });
+  });
+  server.get("/url", async (_, res) => {
+    res.status(200).json({"url": url});
   });
 
   if (!fs.existsSync(runtimePath)) {
@@ -62,7 +68,7 @@ async function createWindow() {
 
   await win.loadFile("index.html");
 
-  win.webContents.send("updateContent", content);
+  win.webContents.send("updateContent", experience);
 }
 
 app.whenReady().then(() => {

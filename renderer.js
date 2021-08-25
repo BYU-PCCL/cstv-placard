@@ -10,7 +10,7 @@ const qrImageElement = document.querySelector("#qr");
 
 // https://stackoverflow.com/a/11765731/1979008
 function setQRCode(url) {
-  if (url === "lock" || url == null) {
+  if (url == null) {
     qrImageElement.src = lockImagePath;
     qrImageElement.classList.add("locked");
     return;
@@ -30,8 +30,8 @@ function setQRCode(url) {
   });
 }
 
-ipcRenderer.on("updateContent", (event, args) => {
-  const { title, description, artist, url } = args;
+function updateExperience(experience) {
+  const { title, description, artist } = experience;
   titleElement.innerHTML = title;
   descriptionElement.innerHTML = description;
 
@@ -41,8 +41,17 @@ ipcRenderer.on("updateContent", (event, args) => {
   } else {
     artistElement.style.display = "none";
   }
+}
 
-  if (url !== undefined) {
-    setQRCode(args.url);
-  }
+ipcRenderer.on("updateExperience", (event, args) => {
+  updateExperience(args);
+});
+
+ipcRenderer.on("updateUrl", (event, url) => {
+  setQRCode(url);
+});
+
+window.addEventListener('load', (event) => {
+  setQRCode(null);
+  updateExperience({title: "Starting", description: "Hang tight for something cool..."});
 });
