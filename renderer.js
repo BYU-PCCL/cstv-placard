@@ -7,6 +7,9 @@ const titleElement = document.querySelector("#title");
 const descriptionElement = document.querySelector("#description");
 const artistElement = document.querySelector("#artist");
 const qrImageElement = document.querySelector("#qr");
+const slideableBackgroundElement = document.querySelector(
+  "#slideable-background"
+);
 
 // https://stackoverflow.com/a/11765731/1979008
 function setQRCode(url) {
@@ -49,6 +52,11 @@ ipcRenderer.on("updateExperience", (event, args) => {
 
 ipcRenderer.on("updateUrl", (event, url) => {
   setQRCode(url);
+});
+
+ipcRenderer.on("updateVisibility", (event, visible) => {
+  const translateX = "translateX(-100vw)";
+  slideableBackgroundElement.style.transform = visible ? "" : translateX;
 });
 
 window.addEventListener("load", (event) => {

@@ -16,6 +16,7 @@ const experience = {
 };
 
 let url = null;
+let visible = true;
 
 async function createServer() {
   const server = express();
@@ -44,6 +45,15 @@ async function createServer() {
     res.status(200).json({ url: url });
   });
 
+  server.put("/visibility", async (req, res) => {
+    visible = await req.body?.visible;
+    win.webContents.send("updateVisibility", visible);
+    res.status(200).json({ status: "ok" });
+  });
+  server.get("/visibility", async (_, res) => {
+    res.status(200).json({ visible: visible });
+  });
+
   if (!fs.existsSync(runtimePath)) {
     fs.mkdirSync(runtimePath);
   } else if (fs.existsSync(socketPath)) {
@@ -57,6 +67,7 @@ async function createServer() {
 async function createWindow() {
   win = new BrowserWindow({
     frame: false,
+    transparent: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
