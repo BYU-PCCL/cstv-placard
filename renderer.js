@@ -65,7 +65,7 @@ ipcRenderer.on("updateVisibility", (event, visible) => {
 window.addEventListener("load", (event) => {
   setQRCode(null);
   updateExperience({
-    title: "",
+    title: "Loading...",
     description: "Hang tight for something cool!",
   });
 });
