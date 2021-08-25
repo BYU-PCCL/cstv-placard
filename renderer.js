@@ -51,7 +51,10 @@ ipcRenderer.on("updateUrl", (event, url) => {
   setQRCode(url);
 });
 
-window.addEventListener('load', (event) => {
+window.addEventListener("load", (event) => {
   setQRCode(null);
-  updateExperience({title: "Starting", description: "Hang tight for something cool..."});
+  updateExperience({
+    title: "",
+    description: "Hang tight for something cool!",
+  });
 });

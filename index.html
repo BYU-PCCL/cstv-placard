@@ -4,24 +4,23 @@ Based on placards for art (https://www.google.com/search?q=art+placard&tbm=isch)
 
 <!DOCTYPE html>
 <html lang="en-US">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
     <!-- Note to maintainers: this name must be the same as the package name and the name referenced in cstv-wm/wallwm.py or the window manager will STOP WORKING -->
     <title>FOOTRON_PLACARD</title>
-</head>
-<body>
-<div class="details-container">
-    <div class="text-details">
+  </head>
+  <body>
+    <div class="details-container">
+      <div class="text-details">
         <h1 id="title"></h1>
         <h2 id="artist"></h2>
         <!-- TODO: Should we add an option to set the year?-->
         <p id="description"></p>
+      </div>
     </div>
-</div>
-<img id="qr"/>
+    <img id="qr" />
 
-<script src="./renderer.js"></script>
-
-</body>
+    <script src="./renderer.js"></script>
+  </body>
 </html>

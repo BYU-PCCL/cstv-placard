@@ -41,7 +41,7 @@ async function createServer() {
     res.status(200).json({ status: "ok" });
   });
   server.get("/url", async (_, res) => {
-    res.status(200).json({"url": url});
+    res.status(200).json({ url: url });
   });
 
   if (!fs.existsSync(runtimePath)) {
