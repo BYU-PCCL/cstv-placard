@@ -42,7 +42,6 @@ body {
   --qr-info-width: 180px;
   position: absolute;
   width: var(--qr-info-width);
-  /* height: var(--qr-info-width); */
   padding: 16px 16px 0;
   bottom: 20px;
   left: 20px;
