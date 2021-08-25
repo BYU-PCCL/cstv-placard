@@ -10,6 +10,7 @@ const qrImageElement = document.querySelector("#qr");
 const slideableBackgroundElement = document.querySelector(
   "#slideable-background"
 );
+const qrBoxElement = document.querySelector("#qr-box");
 
 // https://stackoverflow.com/a/11765731/1979008
 function setQRCode(url) {
@@ -56,7 +57,9 @@ ipcRenderer.on("updateUrl", (event, url) => {
 
 ipcRenderer.on("updateVisibility", (event, visible) => {
   const translateX = "translateX(-100vw)";
+  const qrBoxShadow = "#11111199 0 4px 8px";
   slideableBackgroundElement.style.transform = visible ? "" : translateX;
+  qrBoxElement.style.boxShadow = visible ? "" : qrBoxShadow;
 });
 
 window.addEventListener("load", (event) => {

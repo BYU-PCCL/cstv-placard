@@ -25,6 +25,11 @@ body {
   justify-content: space-between;
 }
 
+#qr-box {
+  transition: box-shadow 300ms cubic-bezier(0,0,.06,.99);
+  box-shadow: none;
+}
+
 .qr-info {
   --qr-info-width: 180px;
   position: absolute;
