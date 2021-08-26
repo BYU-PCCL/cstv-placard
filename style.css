@@ -15,11 +15,11 @@ body {
 }
 
 .cs-logo {
-  width: 180px;
+  width: 280px;
   position: absolute;
   right: 0;
   bottom: 0;
-  margin: 32px;
+  margin: 48px;
 }
 
 .details-container {
@@ -39,7 +39,7 @@ body {
 }
 
 .qr-info {
-  --qr-info-width: 180px;
+  --qr-info-width: 160px;
   position: absolute;
   width: var(--qr-info-width);
   padding: 16px;
