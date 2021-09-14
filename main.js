@@ -82,6 +82,11 @@ async function createWindow() {
   win.webContents.send("updateContent", experience);
 }
 
+if (process.platform === 'linux') {
+  app.commandLine.appendSwitch('enable-transparent-visuals');
+  app.commandLine.appendSwitch('disable-gpu');
+}
+
 app.whenReady().then(() => {
   setTimeout(async function () {
     await createWindow();
