@@ -63,31 +63,19 @@ ipcRenderer.on("updateUrl", (event, url) => {
 });
 
 ipcRenderer.on("updateLayout", (event, layout) => {
-  const logoMarginHorizontal = parseInt(
-    getComputedStyle(logoElement).marginRight.slice(0, -2)
-  );
-  const logoMarginVertical = parseInt(
-    getComputedStyle(logoElement).marginTop.slice(0, -2)
-  );
-  const qrPadding = parseInt(
-    getComputedStyle(qrBoxElement).padding.slice(0, -2)
-  );
   if (layout === "full") {
     slideableBackgroundElement.style.width = createContainerWidthStyle(100);
     slideableBackgroundElement.style.transform = "";
     qrBoxElement.style.boxShadow = "";
     qrBoxElement.style.transform = "";
     logoElement.style.transform = "";
+    logoElement.style.opacity = "";
   } else if (layout === "slim") {
     slideableBackgroundElement.style.width = createContainerWidthStyle(60);
     slideableBackgroundElement.style.transform = "";
     qrBoxElement.style.boxShadow = "";
-    qrBoxElement.style.transform = `translateY(-${
-      logoElement.offsetHeight + logoMarginVertical * 2 - qrPadding
-    }px)`;
-    logoElement.style.transform = `translateX(-${
-      window.innerWidth - (logoElement.offsetWidth + logoMarginHorizontal * 2)
-    }px)`;
+    logoElement.style.transform = `translateX(-${window.innerWidth * 1.5}px)`;
+    logoElement.style.opacity = "0%";
   } else if (layout === "hidden") {
     slideableBackgroundElement.style.transform = HIDE_TRANSLATE_X;
     qrBoxElement.style.boxShadow = QR_BOX_SHADOW;
@@ -95,6 +83,7 @@ ipcRenderer.on("updateLayout", (event, layout) => {
     // window.innerWidth is kind of a random position, but we want it not to feel like it's
     // floating out when nothing else is
     logoElement.style.transform = `translateX(-${window.innerWidth * 1.5}px)`;
+    logoElement.style.opacity = "0%";
   }
 });
 
