@@ -95,3 +95,7 @@ body {
 #artist {
   margin: 0 0 40px;
 }
+
+#description {
+  line-height: 1.5em;
+}
