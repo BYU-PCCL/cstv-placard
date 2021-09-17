@@ -11,6 +11,13 @@ const slideableBackgroundElement = document.querySelector(
   "#slideable-background"
 );
 const qrBoxElement = document.querySelector("#qr-box");
+const logoElement = document.querySelector("#logo");
+
+const HIDE_TRANSLATE_X = "translateX(-100vw)";
+const QR_BOX_SHADOW = "#11111199 0 4px 8px";
+
+const createContainerWidthStyle = (widthPercent) =>
+  `calc(${widthPercent}% - (var(--padding) * 2))`;
 
 // https://stackoverflow.com/a/11765731/1979008
 function setQRCode(url) {
@@ -55,17 +62,47 @@ ipcRenderer.on("updateUrl", (event, url) => {
   setQRCode(url);
 });
 
-ipcRenderer.on("updateVisibility", (event, visible) => {
-  const translateX = "translateX(-100vw)";
-  const qrBoxShadow = "#11111199 0 4px 8px";
-  slideableBackgroundElement.style.transform = visible ? "" : translateX;
-  qrBoxElement.style.boxShadow = visible ? "" : qrBoxShadow;
+ipcRenderer.on("updateLayout", (event, layout) => {
+  const logoMarginHorizontal = parseInt(
+    getComputedStyle(logoElement).marginRight.slice(0, -2)
+  );
+  const logoMarginVertical = parseInt(
+    getComputedStyle(logoElement).marginTop.slice(0, -2)
+  );
+  const qrPadding = parseInt(
+    getComputedStyle(qrBoxElement).padding.slice(0, -2)
+  );
+  if (layout === "full") {
+    slideableBackgroundElement.style.width = createContainerWidthStyle(100);
+    slideableBackgroundElement.style.transform = "";
+    qrBoxElement.style.boxShadow = "";
+    qrBoxElement.style.transform = "";
+    logoElement.style.transform = "";
+  } else if (layout === "slim") {
+    slideableBackgroundElement.style.width = createContainerWidthStyle(60);
+    slideableBackgroundElement.style.transform = "";
+    qrBoxElement.style.boxShadow = "";
+    qrBoxElement.style.transform = `translateY(-${
+      logoElement.offsetHeight + logoMarginVertical * 2 - qrPadding
+    }px)`;
+    logoElement.style.transform = `translateX(-${
+      window.innerWidth - (logoElement.offsetWidth + logoMarginHorizontal * 2)
+    }px)`;
+  } else if (layout === "hidden") {
+    slideableBackgroundElement.style.transform = HIDE_TRANSLATE_X;
+    qrBoxElement.style.boxShadow = QR_BOX_SHADOW;
+    qrBoxElement.style.transform = "";
+    // window.innerWidth is kind of a random position, but we want it not to feel like it's
+    // floating out when nothing else is
+    logoElement.style.transform = `translateX(-${window.innerWidth * 1.5}px)`;
+  }
 });
 
 window.addEventListener("load", (event) => {
   setQRCode(null);
   updateExperience({
     title: "Loading...",
-    description: "Hang tight for something cool!",
+    description:
+      "Hang tight for something cool! Hang tight for something cool! Hang tight for something cool! Hang tight for something cool!",
   });
 });

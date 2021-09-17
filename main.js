@@ -16,7 +16,7 @@ const experience = {
 };
 
 let url = null;
-let visible = true;
+let layout = "full";
 
 async function createServer() {
   const server = express();
@@ -45,13 +45,13 @@ async function createServer() {
     res.status(200).json({ url: url });
   });
 
-  server.put("/visibility", async (req, res) => {
-    visible = await req.body?.visible;
-    win.webContents.send("updateVisibility", visible);
+  server.put("/layout", async (req, res) => {
+    layout = await req.body?.layout;
+    win.webContents.send("updateLayout", layout);
     res.status(200).json({ status: "ok" });
   });
-  server.get("/visibility", async (_, res) => {
-    res.status(200).json({ visible: visible });
+  server.get("/layout", async (_, res) => {
+    res.status(200).json({ layout: layout });
   });
 
   if (!fs.existsSync(runtimePath)) {
