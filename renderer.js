@@ -92,6 +92,6 @@ window.addEventListener("load", (event) => {
   updateExperience({
     title: "Loading...",
     description:
-      "Hang tight for something cool! Hang tight for something cool! Hang tight for something cool! Hang tight for something cool!",
+      "Hang tight for something cool!",
   });
 });
