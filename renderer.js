@@ -47,7 +47,7 @@ function updateExperience(experience) {
   descriptionElement.innerHTML = description;
 
   if (artist != null) {
-    artistElement.style.display = "initial";
+    artistElement.style.display = "";
     artistElement.innerHTML = artist;
   } else {
     artistElement.style.display = "none";

@@ -90,11 +90,13 @@ body {
 }
 
 #title {
-  margin-bottom: 10px;
+  margin-bottom: 16px;
 }
 
 #artist {
-  margin: 0 0 40px;
+  font-weight: 500;
+  margin-bottom: 40px;
+  font-style: italic;
 }
 
 #description {
