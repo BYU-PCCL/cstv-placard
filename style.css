@@ -92,15 +92,16 @@ body {
 }
 
 #title {
-  margin-bottom: 16px;
+  margin-bottom: 0;
 }
 
 #artist {
+  margin-top: 16px;
   font-weight: 500;
-  margin-bottom: 40px;
   font-style: italic;
 }
 
 #description {
+  margin-top: 40px;
   line-height: 1.5em;
 }
