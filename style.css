@@ -9,6 +9,7 @@ body {
   color: #fafafa;
   font-family: "Open Sans", sans-serif;
   overflow: hidden;
+  position: relative;
 }
 
 #slideable-background {
@@ -28,11 +29,15 @@ body {
 
 .details-container {
   --padding: 36px;
+  top: 0;
+  left: 0;
+  bottom: 0;
   background: #212121;
   height: calc(100% - (var(--padding) * 2));
-  width: calc(100% - (var(--padding) * 2));
+  width: calc(574px - (var(--padding) * 2));
   padding: var(--padding);
   display: flex;
+  position: absolute;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
