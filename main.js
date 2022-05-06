@@ -80,6 +80,7 @@ async function createWindow() {
   await win.loadFile("index.html");
 
   win.webContents.send("updateContent", experience);
+  win.setIgnoreMouseEvents(true);
 }
 
 if (process.platform === 'linux') {
