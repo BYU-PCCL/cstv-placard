@@ -85,7 +85,6 @@ async function createWindow() {
 
 if (process.platform === 'linux') {
   app.commandLine.appendSwitch('enable-transparent-visuals');
-  app.commandLine.appendSwitch('disable-gpu');
 }
 
 app.whenReady().then(() => {
