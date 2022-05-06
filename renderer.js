@@ -14,7 +14,7 @@ const qrBoxElement = document.querySelector("#qr-box");
 const logoElement = document.querySelector("#logo");
 
 const FULL_WIDTH = 574;
-const HIDE_TRANSLATE_X = `translateX(-${FULL_WIDTH-4}px)`;
+const HIDE_TRANSLATE_X = `translateX(-${FULL_WIDTH+4}px)`;
 const QR_BOX_SHADOW = "#11111199 0 4px 8px";
 
 const createContainerWidthStyle = (widthPercent) =>
