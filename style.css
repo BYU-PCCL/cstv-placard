@@ -23,8 +23,8 @@ body {
   left: 0;
   bottom: 0;
   background-color: #001029;
-  height: calc(100% - (var(--padding) * 2));
-  width: calc(574px - (var(--padding) * 2));
+  height: 100%;
+  width: 574px;
   padding: var(--padding);
   display: flex;
   position: absolute;
