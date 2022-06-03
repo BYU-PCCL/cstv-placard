@@ -6,7 +6,7 @@ html {
 }
 
 body {
-  color: #fafafa;
+  color: #f7faff;
   font-family: "Open Sans", sans-serif;
   overflow: hidden;
   position: relative;
@@ -17,22 +17,12 @@ body {
     width 300ms cubic-bezier(0, 0, 0.06, 0.99);
 }
 
-.cs-logo {
-  transition: opacity 300ms cubic-bezier(0, 0, 0.06, 0.99),
-    transform 300ms cubic-bezier(0, 0, 0.06, 0.99);
-  width: 250px;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  margin: 36px;
-}
-
 .details-container {
   --padding: 36px;
   top: 0;
   left: 0;
   bottom: 0;
-  background: #212121;
+  background: #00010a;
   height: calc(100% - (var(--padding) * 2));
   width: calc(574px - (var(--padding) * 2));
   padding: var(--padding);
@@ -46,41 +36,67 @@ body {
 #qr-box {
   transition: box-shadow 300ms cubic-bezier(0, 0, 0.06, 0.99),
     transform 300ms cubic-bezier(0, 0, 0.06, 0.99);
-  box-shadow: none;
+  box-shadow: 0 0 2.17551px rgba(179, 180, 248, 0.028),
+    0 0 6.21573px rgba(179, 180, 248, 0.035),
+    0 0 60px rgba(179, 180, 248, 0.05),
+    0 50px 70px 20px rgba(179, 180, 248, 0.03);
+}
+
+.qr-bg-gradient {
+  position: absolute;
+  margin-top: -16px;
+  width: 100%;
+  height: 100%;
+  z-index: 499;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.024) 49.02%, rgba(255, 255, 255, 0) 100.12%);
+}
+
+#qr-bg-canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  --gradient-color-1: #00040a;
+  --gradient-color-2: #0f408a;
+  --gradient-color-3: #001029;
+  --gradient-color-4: #001e4c;
+  margin-top: -16px;
 }
 
 .qr-info {
   --qr-info-width: 160px;
   position: absolute;
-  width: var(--qr-info-width);
+  width: calc(var(--qr-info-width) + calc(16px * 2));
   padding: 16px;
   bottom: 20px;
   left: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #212121;
+  background-color: #001029;
   border-radius: 10px;
+  overflow: clip;
 }
 
 .qr-hint {
-  color: #ccc;
-  font-style: italic;
+  color: #f7faff;
   font-size: 14pt;
   margin-top: 16px;
   margin-bottom: 32px;
+  z-index: 500;
 }
 
 #qr {
-  background: white;
+  background: #f7faff;
   border-radius: 8px;
+  z-index: 500;
 }
 
 #qr.locked {
   --lock-size: 80px;
-  width: var(--lock-size);
-  height: var(--lock-size);
-  padding: calc((var(--qr-info-width) - var(--lock-size)) / 2);
+  --padding: calc((var(--qr-info-width) - var(--lock-size)) / 2);
+  width: calc(var(--lock-size) + calc(var(--padding) * 2));
+  height: calc(var(--lock-size) + calc(var(--padding) * 2));
+  padding: var(--padding);
 }
 
 .text-details {

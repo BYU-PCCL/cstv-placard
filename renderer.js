@@ -14,11 +14,13 @@ const qrBoxElement = document.querySelector("#qr-box");
 const logoElement = document.querySelector("#logo");
 
 const FULL_WIDTH = 574;
-const HIDE_TRANSLATE_X = `translateX(-${FULL_WIDTH+4}px)`;
-const QR_BOX_SHADOW = "#11111199 0 4px 8px";
+const HIDE_TRANSLATE_X = `translateX(-${FULL_WIDTH + 4}px)`;
+
+import { Gradient } from './scripts/Gradient.js'
+
 
 const createContainerWidthStyle = (widthPercent) =>
-  `calc(${FULL_WIDTH * widthPercent}px - (var(--padding) * 2))`;
+  `${FULL_WIDTH * widthPercent}`;
 
 // https://stackoverflow.com/a/11765731/1979008
 function setQRCode(url) {
@@ -67,19 +69,16 @@ ipcRenderer.on("updateLayout", (event, layout) => {
   if (layout === "full") {
     slideableBackgroundElement.style.width = createContainerWidthStyle(1);
     slideableBackgroundElement.style.transform = "";
-    qrBoxElement.style.boxShadow = "";
     qrBoxElement.style.transform = "";
     logoElement.style.transform = "";
     logoElement.style.opacity = "";
   } else if (layout === "slim") {
     slideableBackgroundElement.style.width = createContainerWidthStyle(0.6);
     slideableBackgroundElement.style.transform = "";
-    qrBoxElement.style.boxShadow = "";
     logoElement.style.transform = `translateX(-${FULL_WIDTH * 1.5}px)`;
     logoElement.style.opacity = "0%";
   } else if (layout === "hidden") {
     slideableBackgroundElement.style.transform = HIDE_TRANSLATE_X;
-    qrBoxElement.style.boxShadow = QR_BOX_SHADOW;
     qrBoxElement.style.transform = "";
     // window.innerWidth is kind of a random position, but we want it not to feel like it's
     // floating out when nothing else is
@@ -92,7 +91,14 @@ window.addEventListener("load", (event) => {
   setQRCode(null);
   updateExperience({
     title: "Loading...",
-    description:
-      "Hang tight for something cool!",
+    description: "Hang tight for something cool!",
   });
 });
+
+window.addEventListener("load", init);
+
+async function init() {
+  const gradient = new Gradient()
+
+  gradient.initGradient("#qr-bg-canvas");
+}

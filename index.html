@@ -6,24 +6,28 @@ Based on placards for art (https://www.google.com/search?q=art+placard&tbm=isch)
 <html lang="en-US">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="style.css" />
     <!-- Note to maintainers: this name must be the same as the package name and the name referenced in cstv-wm/wallwm.py or the window manager will STOP WORKING -->
     <title>FOOTRON_PLACARD</title>
+
+    <script src="tailwind.js"></script>
   </head>
   <body>
-    <div class="details-container" id="slideable-background">
-      <div class="text-details">
-        <h1 id="title"></h1>
-        <h2 id="artist"></h2>
-        <!-- TODO: Should we add an option to set the year?-->
-        <p id="description"></p>
+    <div class="w-full h-screen bg-transparent relative">
+      <div class="h-screen details-container absolute" id="slideable-background">
+        <div class="text-details">
+          <h1 id="title" class="text-4xl font-semibold"></h1>
+          <h2 id="artist"></h2>
+          <!-- TODO: Should we add an option to set the year?-->
+          <p id="description"></p>
+        </div>
       </div>
-      <img src="./cs-logo.svg" class="cs-logo" id="logo">
+      <div class="qr-info" id="qr-box">
+        <canvas id="qr-bg-canvas" data-transition-in></canvas>
+        <div class="qr-bg-gradient" ></div>
+        <p class="qr-hint">Scan to interact with the display.</p>
+        <img id="qr" />
+      </div>
     </div>
-    <div class="qr-info" id="qr-box">
-      <p class="qr-hint">Scan to interact with the display.</p>
-      <img id="qr" />
-    </div>
-    <script src="./renderer.js"></script>
+    <script src="./renderer.js" type="module"></script>
   </body>
 </html>

@@ -32,6 +32,7 @@ async function createServer() {
     win.webContents.send("updateExperience", experience);
     res.status(200).json({ status: "ok" });
   });
+
   server.get("/experience", async (_, res) => {
     res.status(200).json(experience);
   });
@@ -68,6 +69,8 @@ async function createWindow() {
   win = new BrowserWindow({
     frame: false,
     transparent: true,
+    width: 2736,
+    height: 1216,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
