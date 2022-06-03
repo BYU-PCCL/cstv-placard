@@ -437,7 +437,7 @@ class MiniGl {
       (this.canvas.width = e),
       (this.canvas.height = t),
       this.gl.viewport(0, 0, e, t),
-      (this.commonUniforms.resolution.value = [e, t]),
+      (this.commonUniforms.resolution.value = [905, 600]),
       (this.commonUniforms.aspectRatio.value = e / t),
       this.debug("MiniGL.setSize", {
         width: e,
