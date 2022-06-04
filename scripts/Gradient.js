@@ -437,7 +437,7 @@ class MiniGl {
       (this.canvas.width = e),
       (this.canvas.height = t),
       this.gl.viewport(0, 0, e, t),
-      (this.commonUniforms.resolution.value = [905, 600]),
+      (this.commonUniforms.resolution.value = [e, t]),
       (this.commonUniforms.aspectRatio.value = e / t),
       this.debug("MiniGL.setSize", {
         width: e,
@@ -527,8 +527,8 @@ class Gradient {
       e(this, "scrollObserver", void 0),
       e(this, "amp", 320),
       e(this, "seed", 5),
-      e(this, "freqX", 14e-5),
-      e(this, "freqY", 29e-5),
+      e(this, "freqX", 5e-4),
+      e(this, "freqY", 5e-4),
       e(this, "freqDelta", 1e-5),
       e(this, "activeColors", [1, 1, 1, 1]),
       e(this, "isMetaKey", !1),
@@ -543,11 +543,8 @@ class Gradient {
           this.isGradientLegendVisible && this.hideGradientLegend(),
           this.conf.playing && ((this.isScrolling = !0), this.pause());
       }),
-      e(this, "handleScrollEnd", () => {
-        (this.isScrolling = !1), this.isIntersecting && this.play();
-      }),
       e(this, "resize", () => {
-        (this.width = window.innerWidth),
+        (this.width = this.el.clientWidth), (this.height = this.el.clientHeight),
           this.minigl.setSize(this.width, this.height),
           this.minigl.setOrthographicCamera(),
           (this.xSegCount = Math.ceil(this.width * this.conf.density[0])),
@@ -557,25 +554,9 @@ class Gradient {
           (this.mesh.material.uniforms.u_shadow_power.value =
             this.width < 600 ? 5 : 6);
       }),
-      e(this, "handleMouseDown", (e) => {
-        this.isGradientLegendVisible &&
-          ((this.isMetaKey = e.metaKey),
-          (this.isMouseDown = !0),
-          !1 === this.conf.playing && requestAnimationFrame(this.animate));
-      }),
-      e(this, "handleMouseUp", () => {
-        this.isMouseDown = !1;
-      }),
       e(this, "animate", (e) => {
-        if (!this.shouldSkipFrame(e) || this.isMouseDown) {
-          if (
-            ((this.t += Math.min(e - this.last, 1e3 / 15)),
-            (this.last = e),
-            this.isMouseDown)
-          ) {
-            let e = 160;
-            this.isMetaKey && (e = -160), (this.t += e);
-          }
+        if (!this.shouldSkipFrame(e)) {
+          this.t += 80;
           (this.mesh.material.uniforms.u_time.value = this.t),
             this.minigl.render();
         }
