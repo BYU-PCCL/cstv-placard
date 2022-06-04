@@ -13,7 +13,6 @@ const experience = {
   title: "Starting...",
   description: null,
   artist: null,
-  action_hints: [],
 };
 
 let url = null;
@@ -36,6 +35,12 @@ async function createServer() {
 
   server.get("/experience", async (_, res) => {
     res.status(200).json(experience);
+  });
+
+  server.put("/action-hints", async (req, res) => {
+    const hints = await req.body?.hints;
+    win.webContents.send("updateActionHints", hints);
+    res.status(200).json({ status: "ok" });
   });
 
   server.put("/url", async (req, res) => {

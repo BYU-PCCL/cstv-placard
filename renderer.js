@@ -49,12 +49,9 @@ function setQRCode(url) {
 }
 
 function updateExperience(experience) {
-  const { title, description, artist, action_hints } = experience;
+  const { title, description, artist } = experience;
   titleElement.innerHTML = title;
   descriptionElement.innerHTML = description;
-  window.experienceActionHints = action_hints ?? [];
-  window.experienceActionHintsShuffle = [];
-  window.showingActionHint = true;
   if (artist != null) {
     artistElement.style.display = "";
     artistElement.innerHTML = artist;
@@ -62,11 +59,22 @@ function updateExperience(experience) {
     artistElement.style.display = "none";
   }
 
+}
+
+function updateActionHints(hints) {
+  window.experienceActionHints = hints ?? [];
+  window.experienceActionHintsShuffle = [];
+  window.showingActionHint = true;
+
   updateQrHint()
 }
 
 ipcRenderer.on("updateExperience", (event, args) => {
   updateExperience(args);
+});
+
+ipcRenderer.on("updateActionHints", (event, hints) => {
+  updateActionHints(hints);
 });
 
 ipcRenderer.on("updateUrl", (event, url) => {
