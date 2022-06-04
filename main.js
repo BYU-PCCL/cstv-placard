@@ -13,6 +13,7 @@ const experience = {
   title: "Starting...",
   description: null,
   artist: null,
+  action_hints: [],
 };
 
 let url = null;

@@ -14,7 +14,10 @@ Based on placards for art (https://www.google.com/search?q=art+placard&tbm=isch)
   </head>
   <body>
     <div class="w-full h-screen bg-transparent relative">
-      <div class="h-screen details-container absolute" id="slideable-background">
+      <div
+        class="h-screen details-container absolute"
+        id="slideable-background"
+      >
         <div class="text-details">
           <h1 id="title" class="text-4xl font-semibold"></h1>
           <h2 id="artist"></h2>
@@ -24,9 +27,23 @@ Based on placards for art (https://www.google.com/search?q=art+placard&tbm=isch)
       </div>
       <div class="qr-info" id="qr-box">
         <canvas id="qr-bg-canvas" data-transition-in></canvas>
-        <div class="qr-bg-gradient" ></div>
-        <p class="qr-hint">Scan to interact with the display.</p>
-        <img id="qr" />
+        <div class="qr-bg-gradient"></div>
+        <div class="qr-info-content">
+          <!--        <p class="qr-hint">Explore<br/><b class="experience-name">Realtime Tracking-by-Detection of Human Motion</b></p>-->
+          <!--        <p class="qr-hint">Interact with<br/><b>video playback</b></p>-->
+          <span class="material-icons-outlined text-4xl" id="qr-hint-icon"
+            >sports_esports</span
+          >
+          <div class="qr-hint">
+            <div id="qr-hint-content-container">
+              <div id="qr-hint-content-height">
+                <span>Scan to</span>
+                <span id="qr-hint-content">control<br />this experience</span>
+              </div>
+            </div>
+          </div>
+          <img id="qr" />
+        </div>
       </div>
     </div>
     <script src="./renderer.js" type="module"></script>

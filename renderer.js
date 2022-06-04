@@ -11,16 +11,20 @@ const slideableBackgroundElement = document.querySelector(
   "#slideable-background"
 );
 const qrBoxElement = document.querySelector("#qr-box");
-const logoElement = document.querySelector("#logo");
+const qrHintContentContainerElement = document.querySelector(
+  "#qr-hint-content-container"
+);
+const qrHintContentElement = document.querySelector("#qr-hint-content");
+const qrHintContentHeightElement = document.querySelector("#qr-hint-content-height");
+const qrHintIconElement = document.querySelector("#qr-hint-icon");
 
 const FULL_WIDTH = 574;
 const HIDE_TRANSLATE_X = `translateX(-${FULL_WIDTH + 4}px)`;
 
-import { Gradient } from './scripts/Gradient.js'
-
+import { Gradient } from "./scripts/Gradient.js";
 
 const createContainerWidthStyle = (widthPercent) =>
-  `${FULL_WIDTH * widthPercent}`;
+  `${FULL_WIDTH * widthPercent}px`;
 
 // https://stackoverflow.com/a/11765731/1979008
 function setQRCode(url) {
@@ -45,16 +49,20 @@ function setQRCode(url) {
 }
 
 function updateExperience(experience) {
-  const { title, description, artist } = experience;
+  const { title, description, artist, action_hints } = experience;
   titleElement.innerHTML = title;
   descriptionElement.innerHTML = description;
-
+  window.experienceActionHints = action_hints ?? [];
+  window.experienceActionHintsShuffle = [];
+  window.showingActionHint = true;
   if (artist != null) {
     artistElement.style.display = "";
     artistElement.innerHTML = artist;
   } else {
     artistElement.style.display = "none";
   }
+
+  updateQrHint()
 }
 
 ipcRenderer.on("updateExperience", (event, args) => {
@@ -70,20 +78,14 @@ ipcRenderer.on("updateLayout", (event, layout) => {
     slideableBackgroundElement.style.width = createContainerWidthStyle(1);
     slideableBackgroundElement.style.transform = "";
     qrBoxElement.style.transform = "";
-    logoElement.style.transform = "";
-    logoElement.style.opacity = "";
   } else if (layout === "slim") {
     slideableBackgroundElement.style.width = createContainerWidthStyle(0.6);
     slideableBackgroundElement.style.transform = "";
-    logoElement.style.transform = `translateX(-${FULL_WIDTH * 1.5}px)`;
-    logoElement.style.opacity = "0%";
   } else if (layout === "hidden") {
     slideableBackgroundElement.style.transform = HIDE_TRANSLATE_X;
     qrBoxElement.style.transform = "";
     // window.innerWidth is kind of a random position, but we want it not to feel like it's
     // floating out when nothing else is
-    logoElement.style.transform = `translateX(-${FULL_WIDTH * 1.5}px)`;
-    logoElement.style.opacity = "0%";
   }
 });
 
@@ -97,8 +99,65 @@ window.addEventListener("load", (event) => {
 
 window.addEventListener("load", init);
 
+function pullFromShuffle(original, shuffle) {
+  if (!original.length) {
+    return undefined;
+  }
+  if (!shuffle.length) {
+    shuffle.push(...original);
+  }
+  const index = Math.floor(Math.random() * shuffle.length);
+  const item = shuffle[index];
+  shuffle.splice(index, 1);
+  return item;
+}
+
+async function updateQrHint() {
+  let shuffleItem;
+  let showActionName = false;
+
+  if (window.showingActionHint) {
+    shuffleItem = pullFromShuffle(experienceActionHints, experienceActionHintsShuffle);
+    if (shuffleItem) {
+      showActionName = true;
+    } else {
+      shuffleItem = "control<br>this experience"
+    }
+  } else {
+    shuffleItem = "explore other experiences"
+  }
+
+  window.showingActionHint = !window.showingActionHint;
+
+  if (shuffleItem !== qrHintContentElement.innerHTML) {
+    qrHintContentElement.style.opacity = "0";
+  }
+
+  setTimeout(() => {
+    qrHintContentElement.innerHTML = shuffleItem;
+    if (showActionName) {
+      qrHintContentElement.classList.add("action-name");
+    } else {
+      qrHintContentElement.classList.remove("action-name");
+    }
+    qrHintContentContainerElement.style.height = `${qrHintContentHeightElement.scrollHeight}px`;
+  }, 600);
+  setTimeout(() => {
+    qrHintContentElement.style.opacity = "1";
+  }, 1000);
+}
+
 async function init() {
-  const gradient = new Gradient()
+  const gradient = new Gradient();
 
   gradient.initGradient("#qr-bg-canvas");
+
+  window.experienceActionHints = [];
+  window.experienceActionHintsShuffle = [];
+  window.showingActionHint = false;
+
+  qrHintContentContainerElement.style.height = `${qrHintContentHeightElement.offsetHeight}px`;
+
+  await updateQrHint()
+  setInterval(updateQrHint, 10000);
 }
