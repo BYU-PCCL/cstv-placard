@@ -32,8 +32,15 @@ async function createServer() {
     win.webContents.send("updateExperience", experience);
     res.status(200).json({ status: "ok" });
   });
+
   server.get("/experience", async (_, res) => {
     res.status(200).json(experience);
+  });
+
+  server.put("/action-hints", async (req, res) => {
+    const hints = await req.body?.hints;
+    win.webContents.send("updateActionHints", hints);
+    res.status(200).json({ status: "ok" });
   });
 
   server.put("/url", async (req, res) => {
@@ -68,6 +75,8 @@ async function createWindow() {
   win = new BrowserWindow({
     frame: false,
     transparent: true,
+    width: 2736,
+    height: 1216,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
